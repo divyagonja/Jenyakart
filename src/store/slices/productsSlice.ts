@@ -63,7 +63,7 @@ export const fetchCategories = createAsyncThunk(
   'products/fetchCategories',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://dummyjson.com/products/categories')
+      const response = await fetch('https://dummyjson.com/products/category-list')
       
       if (!response.ok) {
         throw new Error('Failed to fetch categories')
