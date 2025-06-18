@@ -156,8 +156,8 @@ const Login = () => {
           <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
             <h4 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials:</h4>
             <div className="text-sm text-blue-700 space-y-1">
-              <div>Username: <span className="font-mono bg-blue-100 px-1 rounded">emilys</span></div>
-              <div>Password: <span className="font-mono bg-blue-100 px-1 rounded">emilyspass</span></div>
+              <div>Username: <span className="font-mono bg-blue-100 px-1 rounded">test</span></div>
+              <div>Password: <span className="font-mono bg-blue-100 px-1 rounded">test</span></div>
             </div>
           </div>
         </div>

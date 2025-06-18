@@ -31,31 +31,28 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials: { username: string; password: string }, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://dummyjson.com/auth/login', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: credentials.username,
-          password: credentials.password,
-          expiresInMins: 30,
-        }),
-        credentials: 'include',
-      })
-
-      if (!response.ok) {
-        throw new Error('Login failed')
+      // For demo purposes, simulate login with test credentials
+      if (credentials.username === 'test' && credentials.password === 'test') {
+        const mockUser = {
+          id: 1,
+          username: 'test',
+          email: 'test@example.com',
+          firstName: 'Test',
+          lastName: 'User',
+          gender: 'male',
+          image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+          accessToken: 'mock-jwt-token-' + Date.now()
+        }
+        
+        // Store token in localStorage
+        localStorage.setItem('accessToken', mockUser.accessToken)
+        
+        return mockUser
+      } else {
+        throw new Error('Invalid credentials')
       }
-
-      const data = await response.json()
-      
-      // Store token in localStorage
-      localStorage.setItem('accessToken', data.accessToken)
-      
-      return data
     } catch (error) {
-      return rejectWithValue('Login failed. Please check your credentials.')
+      return rejectWithValue('Invalid username or password. Please use test/test.')
     }
   }
 )
@@ -71,20 +68,18 @@ export const getCurrentUser = createAsyncThunk(
         throw new Error('No token available')
       }
 
-      const response = await fetch('https://dummyjson.com/auth/me', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        credentials: 'include',
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to get user')
+      // Return mock user data for demo
+      const mockUser = {
+        id: 1,
+        username: 'test',
+        email: 'test@example.com',
+        firstName: 'Test',
+        lastName: 'User',
+        gender: 'male',
+        image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
       }
-
-      const data = await response.json()
-      return data
+      
+      return mockUser
     } catch (error) {
       return rejectWithValue('Failed to get user information')
     }
