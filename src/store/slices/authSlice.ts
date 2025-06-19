@@ -17,6 +17,7 @@ interface AuthState {
   isLoading: boolean
   error: string | null
   isAuthenticated: boolean
+  isRegistering: boolean
 }
 
 const initialState: AuthState = {
@@ -25,7 +26,48 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
   isAuthenticated: !!localStorage.getItem('accessToken'),
+  isRegistering: false,
 }
+
+export interface RegisterUserParams {
+  firstName: string
+  lastName: string
+  email: string
+  username: string
+  password: string
+}
+
+export const registerUser = createAsyncThunk(
+  'auth/registerUser',
+  async (userData: RegisterUserParams, { rejectWithValue }) => {
+    try {
+      // For demo purposes, simulate registration
+      // In a real app, this would be an API call to register the user
+      
+      // Simulate a delay for the registration process
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      // Create a mock user with the provided data
+      const mockUser = {
+        id: Math.floor(Math.random() * 1000) + 1,
+        username: userData.username,
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        gender: 'not specified', // Default value
+        image: `https://ui-avatars.com/api/?name=${userData.firstName}+${userData.lastName}&background=random`,
+        accessToken: 'mock-jwt-token-' + Date.now()
+      }
+      
+      // Store token in localStorage
+      localStorage.setItem('accessToken', mockUser.accessToken)
+      
+      return mockUser
+    } catch (error) {
+      return rejectWithValue('Registration failed. Please try again.')
+    }
+  }
+)
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -103,6 +145,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Login cases
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true
         state.error = null
@@ -118,6 +161,26 @@ const authSlice = createSlice({
         state.isLoading = false
         state.error = action.payload as string
       })
+      // Register cases
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true
+        state.isRegistering = true
+        state.error = null
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isRegistering = false
+        state.user = action.payload
+        state.accessToken = action.payload.accessToken
+        state.isAuthenticated = true
+        state.error = null
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false
+        state.isRegistering = false
+        state.error = action.payload as string
+      })
+      // Get current user case
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.user = action.payload
       })

@@ -75,10 +75,10 @@ const Login = () => {
         <div className="text-center">
           <Link to="/" className="inline-flex items-center space-x-2 group">
             <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-              <span className="text-white font-bold text-lg">E</span>
+              <span className="text-white font-bold text-lg">J</span>
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              EliteShop
+              JenyaKart
             </span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome back</h2>
@@ -166,9 +166,9 @@ const Login = () => {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
-            <span className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer transition-colors duration-300">
-              Contact us for access
-            </span>
+            <Link to="/signup" className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300">
+              Sign up now
+            </Link>
           </p>
         </div>
       </div>

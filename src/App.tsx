@@ -8,8 +8,10 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { useAppSelector } from './hooks/redux';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import NotFound from "./pages/NotFound";
@@ -30,9 +32,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 // Layout Component
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
-      <main>{children}</main>
+      <main className="flex-grow">{children}</main>
+      <Footer />
     </div>
   );
 };
@@ -44,6 +47,7 @@ const AppContent = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={
           <Layout>
             <ProtectedRoute>
